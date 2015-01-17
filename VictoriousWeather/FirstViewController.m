@@ -10,6 +10,11 @@
 
 @interface FirstViewController () <NSURLSessionDownloadDelegate>
 
+@property (weak, nonatomic) IBOutlet UILabel *temperature;
+@property (weak, nonatomic) IBOutlet UILabel *weatherDescription;
+@property (weak, nonatomic) IBOutlet UILabel *city;
+@property (strong, nonatomic) NSDictionary *weatherDict;
+
 @end
 
 @implementation FirstViewController
@@ -18,6 +23,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    [self downloadWeatherData];
+    
+    
+}
+
+- (void)downloadWeatherData {
     NSURL *downloadURL = [NSURL URLWithString:@"http://www.myweather2.com/developer/forecast.ashx?uac=KDrRbvwbAt&output=json&query=97006&temp_unit=f"];
     [self downloadDataFromURL:downloadURL withCompletionHandler:^(NSData *data) {
         if (data != nil) {
@@ -28,7 +39,9 @@
             if (error != nil) {
                 NSLog(@"%@", [error localizedDescription]);
             } else {
-                NSLog(@"%@", weatherDict);
+                self.weatherDict = weatherDict;
+                NSString *temperatureValue = [[[self.weatherDict objectForKey:@"weather"] objectForKey:@"curren_weather"][0] objectForKey:@"temp"];
+                self.temperature.text = [NSString stringWithFormat:@"%@F", temperatureValue];
             }
         }
     }];
