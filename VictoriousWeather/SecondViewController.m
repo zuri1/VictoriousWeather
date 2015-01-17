@@ -8,7 +8,7 @@
 
 #import "SecondViewController.h"
 
-@interface SecondViewController ()
+@interface SecondViewController () <NSURLSessionDownloadDelegate>
 
 @end
 
@@ -17,6 +17,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    NSURL *downloadURL = [NSURL URLWithString:@"http://www.myweather2.com/developer/forecast.ashx?uac=KDrRbvwbAt&output=json&query=97006"];
+    [self downloadDataFromURL:downloadURL withCompletionHandler:^(NSData *data) {
+        if (data != nil) {
+            NSLog(@"We got data");
+        }
+    }];
+}
+
+- (void)downloadDataFromURL:(NSURL *)url withCompletionHandler:(void (^)(NSData *))completionHandler {
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
+    
+    // Should prolly use a completion handler...
+    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@", [error localizedDescription]);
+        } else {
+            NSInteger HTTPStatusCode = [(NSHTTPURLResponse *)response statusCode];
+            NSLog(@"HTTP status code %ld", (long)HTTPStatusCode);
+        }
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            completionHandler(data);
+        }];
+    }];
+    [dataTask resume];
+}
+
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
+    
 }
 
 - (void)didReceiveMemoryWarning {
