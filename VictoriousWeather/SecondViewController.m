@@ -10,6 +10,9 @@
 
 @interface SecondViewController ()
 
+@property (weak, nonatomic) IBOutlet UILabel *temperature;
+@property (weak, nonatomic) IBOutlet UILabel *weatherDescription;
+
 @end
 
 @implementation SecondViewController
@@ -17,6 +20,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    [self addSwipeGestureRecognizer];
+}
+
+- (void)addSwipeGestureRecognizer {
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRight:)];
+    [swipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
+    [self.view addGestureRecognizer:swipeRight];
+}
+
+- (IBAction)swipeRight:(id)sender
+{
+    NSUInteger selectedIndex = [super.tabBarController selectedIndex];
+    
+    [super.tabBarController setSelectedIndex:selectedIndex - 1];
 }
 
 - (void)didReceiveMemoryWarning {

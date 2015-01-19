@@ -7,12 +7,12 @@
 //
 
 #import "FirstViewController.h"
+#import "ZMBNetworkController.h"
 
-@interface FirstViewController () <NSURLSessionDownloadDelegate>
+@interface FirstViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *temperature;
 @property (weak, nonatomic) IBOutlet UILabel *weatherDescription;
-@property (weak, nonatomic) IBOutlet UILabel *city;
 @property (strong, nonatomic) NSDictionary *weatherDict;
 
 @end
@@ -23,50 +23,25 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    [self downloadWeatherData];
+    [self addSwipeGestureRecognizer];
+//    [self downloadWeatherData];
+    
+    
     
     
 }
 
-- (void)downloadWeatherData {
-    NSURL *downloadURL = [NSURL URLWithString:@"http://www.myweather2.com/developer/forecast.ashx?uac=KDrRbvwbAt&output=json&query=97006&temp_unit=f"];
-    [self downloadDataFromURL:downloadURL withCompletionHandler:^(NSData *data) {
-        if (data != nil) {
-            
-            NSError *error;
-            NSDictionary *weatherDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-            
-            if (error != nil) {
-                NSLog(@"%@", [error localizedDescription]);
-            } else {
-                self.weatherDict = weatherDict;
-                NSString *temperatureValue = [[[self.weatherDict objectForKey:@"weather"] objectForKey:@"curren_weather"][0] objectForKey:@"temp"];
-                self.temperature.text = [NSString stringWithFormat:@"%@F", temperatureValue];
-            }
-        }
-    }];
+- (void)addSwipeGestureRecognizer {
+    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft:)];
+    [swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
+    [self.view addGestureRecognizer:swipeLeft];
 }
 
-- (void)downloadDataFromURL:(NSURL *)url withCompletionHandler:(void (^)(NSData *data))completionHandler {
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
+- (IBAction)swipeLeft:(id)sender
+{
+    NSUInteger selectedIndex = [super.tabBarController selectedIndex];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil) {
-            NSLog(@"%@", [error localizedDescription]);
-        } else {
-            NSInteger HTTPStatusCode = [(NSHTTPURLResponse *)response statusCode];
-            NSLog(@"HTTP status code %ld", (long)HTTPStatusCode);
-        }
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            completionHandler(data);
-        }];
-    }];
-    [dataTask resume];
-}
-
-- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
-    
+    [super.tabBarController setSelectedIndex:selectedIndex + 1];
 }
 
 - (void)didReceiveMemoryWarning {
