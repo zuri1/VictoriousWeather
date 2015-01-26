@@ -35,15 +35,21 @@
 - (id)initWithCoder:(NSCoder *)aDecoder {
     
     if (self = [super init]) {
-//        self.currentWeather = [aDecoder decodeObjectForKey:@"currentWeather"];
         
+        self.todaysTemperature = [aDecoder decodeObjectForKey:@"todaysTemperature"];
+        self.todaysWeatherDescription = [aDecoder decodeObjectForKey:@"todaysWeatherDescription"];
+        self.tomorrowsTemperature = [aDecoder decodeObjectForKey:@"tomorrowsTemperature"];
+        self.tomorrowsWeatherDescription = [aDecoder decodeObjectForKey:@"tomorrowsWeatherDescription"];
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     
-//    [aCoder encodeObject:self.currentWeather forKey:@"currentWeather"];
+    if (self.todaysTemperature != nil) [aCoder encodeObject:self.todaysTemperature forKey:@"todaysTemperature"];
+    if (self.todaysWeatherDescription != nil) [aCoder encodeObject:self.todaysWeatherDescription forKey:@"todaysWeatherDescription"];
+    if (self.tomorrowsTemperature != nil) [aCoder encodeObject:self.tomorrowsTemperature forKey:@"tomorrowsTemperature"];
+    if (self.tomorrowsWeatherDescription != nil) [aCoder encodeObject:self.tomorrowsWeatherDescription forKey:@"tomorrowsWeatherDescription"];
 }
 
 @end

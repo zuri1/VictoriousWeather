@@ -25,10 +25,12 @@
     [self addSwipeGestureRecognizer];
 
     [[ZMBNetworkController sharedController] setDelegate:self];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
-    ZMBNetworkController *myNetworkController = [ZMBNetworkController sharedController];
-    [myNetworkController downloadData];
-    [myNetworkController startTimer];
+    [self updateWeather];
 }
 
 - (void)updateWeather {
