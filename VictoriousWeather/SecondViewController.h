@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZMBNetworkController.h"
 
-@interface SecondViewController : UIViewController
+@interface SecondViewController : UIViewController <WeatherDataDelegate>
 
 
 @end

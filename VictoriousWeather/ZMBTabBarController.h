@@ -10,4 +10,8 @@
 
 @interface ZMBTabBarController : UITabBarController
 
+@property (nonatomic, strong) NSString *string;
+
+- (void)updateWeather;
+
 @end

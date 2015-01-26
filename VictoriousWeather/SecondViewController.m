@@ -7,11 +7,14 @@
 //
 
 #import "SecondViewController.h"
+#import "ZMBWeatherModel.h"
 
 @interface SecondViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *temperature;
 @property (weak, nonatomic) IBOutlet UILabel *weatherDescription;
+
+@property (strong, nonatomic) NSTimer *myTimer;
 
 @end
 
@@ -22,7 +25,28 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     [self addSwipeGestureRecognizer];
+    
+    [[ZMBNetworkController sharedController] setDelegate:self];
 }
+
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self updateWeatherWithModel];
+}
+
+- (void)updateWeatherWithModel
+{
+    // Update the view with the cached weather model
+    
+    ZMBWeatherModel *weatherModel = [ZMBNetworkController sharedController].weatherModel;
+    
+    self.temperature.text = weatherModel.tomorrowsTemperature;
+    self.weatherDescription.text = weatherModel.tomorrowsWeatherDescription;
+}
+
 
 - (void)addSwipeGestureRecognizer {
     UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRight:)];

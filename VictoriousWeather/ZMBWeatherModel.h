@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ZMBWeatherModel : NSObject
+@interface ZMBWeatherModel : NSObject <NSCoding>
+
+@property (nonatomic, strong) NSString *todaysTemperature;
+@property (nonatomic, strong) NSString *tomorrowsTemperature;
+@property (nonatomic, strong) NSString *todaysWeatherDescription;
+@property (nonatomic, strong) NSString *tomorrowsWeatherDescription;
+
+- (id)initWithJSONDict:(NSDictionary *)JSONDict;
 
 @end

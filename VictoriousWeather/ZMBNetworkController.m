@@ -7,8 +7,11 @@
 //
 
 #import "ZMBNetworkController.h"
+#import "ZMBWeatherModel.h"
 
 @interface ZMBNetworkController () <NSURLSessionDelegate>
+
+@property (strong, nonatomic) NSTimer *myTimer;
 
 @end
 
@@ -26,27 +29,15 @@
     return shared;
 }
 
-- (void)downloadWeatherData {
-    NSURL *downloadURL = [NSURL URLWithString:@"http://www.myweather2.com/developer/forecast.ashx?uac=KDrRbvwbAt&output=json&query=97006&temp_unit=f"];
-    [self downloadDataFromURL:downloadURL withCompletionHandler:^(NSData *data) {
-        if (data != nil) {
-            
-            NSError *error;
-//            NSDictionary *weatherDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-            
-            if (error != nil) {
-                NSLog(@"%@", [error localizedDescription]);
-            } else {
-              
-                /*
-                self.weatherDict = [weatherDict objectForKey:@"weather"];
-                NSString *temperatureValue = [[self.weatherDict objectForKey:@"curren_weather"][0] objectForKey:@"temp"];
-                self.temperature.text = [NSString stringWithFormat:@"%@F", temperatureValue];
-                self.weatherDescription.text = [[self.weatherDict  objectForKey:@"curren_weather"][0] objectForKey:@"weather_text"];
-                 */
-            }
-        }
-    }];
+- (void)startTimer {
+    self.myTimer = [NSTimer timerWithTimeInterval:1800 target:self selector:@selector(downloadDataFromURL:withCompletionHandler:) userInfo:nil repeats:YES];
+    
+}
+
+- (void)downloadWeatherDataWithCompletion:(ZMBDownloadCompletion)completion {
+    
+    
+    
 }
 
 - (void)downloadDataFromURL:(NSURL *)url withCompletionHandler:(void (^)(NSData *data))completionHandler {
@@ -54,17 +45,42 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+       
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
         } else {
             NSInteger HTTPStatusCode = [(NSHTTPURLResponse *)response statusCode];
             NSLog(@"HTTP status code %ld", (long)HTTPStatusCode);
         }
+        
+        NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+        //ZMBWeatherModel *weatherModel = [[ZMBWeatherModel alloc] initWithJSONDict:JSON];
+        self.weatherModel = [[ZMBWeatherModel alloc] initWithJSONDict:JSON];
+        //self.weatherModel = weatherModel;
+    
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            completionHandler(data);
+            [self.delegate updateWeatherWithModel:self.weatherModel];
+            
+            
         }];
     }];
     [dataTask resume];
+}
+
+- (ZMBWeatherModel *)dataFromJSON:(NSDictionary *)JSON {
+   
+    NSDictionary *myJSON = [[NSDictionary alloc] initWithDictionary:JSON];
+    NSArray *currentWeather = [[NSArray alloc] initWithArray:[myJSON objectForKey:@"curren_weather"]];
+    
+    
+//    NSNumber *currentTemperature = [currentWeather valueForKey:@"temp"];
+   
+    
+    ZMBWeatherModel *weatherModel = [[ZMBWeatherModel alloc] init];
+//    weatherModel.currentTemperature = currentTemperature;
+    
+    
+    return weatherModel;
 }
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {

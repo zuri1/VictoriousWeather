@@ -8,10 +8,27 @@
 
 #import <Foundation/Foundation.h>
 
+@class ZMBWeatherModel;
+
+@protocol WeatherDataDelegate <NSObject>
+
+- (void)updateWeatherWithModel:(ZMBWeatherModel *)weatherModel;
+
+@end
+
+typedef void (^ZMBDownloadCompletion)(ZMBWeatherModel *data, NSError *error);
+
 @interface ZMBNetworkController : NSObject
+
+// In the absence of further information about this program, I've decided the simplest solution
+// to temporarily store weather information is in a property on this network controller
+@property (nonatomic, strong) ZMBWeatherModel *weatherModel;
+@property (nonatomic, weak) id<WeatherDataDelegate>delegate;
 
 + (ZMBNetworkController *)sharedController;
 
-- (void)downloadWeatherData;
+- (void)startTimer;
+- (void)downloadWeatherDataWithCompletion:(ZMBDownloadCompletion)completion;
+- (void)downloadDataFromURL:(NSURL *)url withCompletionHandler:(void (^)(NSData *data))completionHandler;
 
 @end

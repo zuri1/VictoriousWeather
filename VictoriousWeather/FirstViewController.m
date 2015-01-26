@@ -7,13 +7,12 @@
 //
 
 #import "FirstViewController.h"
-#import "ZMBNetworkController.h"
+#import "ZMBWeatherModel.h"
 
 @interface FirstViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *temperature;
 @property (weak, nonatomic) IBOutlet UILabel *weatherDescription;
-@property (strong, nonatomic) NSDictionary *weatherDict;
 
 @end
 
@@ -24,12 +23,18 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     [self addSwipeGestureRecognizer];
-//    [self downloadWeatherData];
+
     
-    
-    
-    
+    [[ZMBNetworkController sharedController] setDelegate:self];
 }
+
+- (void)updateWeatherWithModel:(ZMBWeatherModel *)weatherModel {
+    
+    // update the view with the weather model
+    self.temperature.text = weatherModel.todaysTemperature;
+    self.weatherDescription.text = weatherModel.todaysWeatherDescription;
+}
+
 
 - (void)addSwipeGestureRecognizer {
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft:)];

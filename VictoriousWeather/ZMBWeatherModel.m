@@ -8,6 +8,42 @@
 
 #import "ZMBWeatherModel.h"
 
+
 @implementation ZMBWeatherModel
+
+- (id)init {
+    if (self = [super init]) {
+        self.todaysTemperature = _todaysTemperature;
+        self.todaysWeatherDescription = _todaysWeatherDescription;
+        self.tomorrowsTemperature = _tomorrowsTemperature;
+        self.tomorrowsWeatherDescription = _tomorrowsWeatherDescription;
+    }
+    return self;
+}
+
+- (id)initWithJSONDict:(NSDictionary *)JSONDict {
+
+    if (self = [super init]) {
+        self.todaysTemperature = [[[JSONDict objectForKey:@"weather"] objectForKey:@"curren_weather"][0] objectForKey:@"temp"];
+        self.todaysWeatherDescription = [[[JSONDict objectForKey:@"weather"] objectForKey:@"curren_weather"][0] objectForKey:@"weather_text"];
+        self.tomorrowsTemperature = [[[JSONDict objectForKey:@"weather"] objectForKey:@"forecast"][1] objectForKey:@"day_max_temp"];
+        self.tomorrowsWeatherDescription = [[[[JSONDict objectForKey:@"weather"] objectForKey:@"forecast"][1] objectForKey:@"day"][0] objectForKey:@"weather_text"];
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    
+    if (self = [super init]) {
+//        self.currentWeather = [aDecoder decodeObjectForKey:@"currentWeather"];
+        
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    
+//    [aCoder encodeObject:self.currentWeather forKey:@"currentWeather"];
+}
 
 @end
