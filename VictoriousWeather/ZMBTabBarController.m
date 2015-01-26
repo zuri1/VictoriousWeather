@@ -30,28 +30,10 @@
 
 - (void)updateWeather {
     
-    NSURL *downloadURL = [NSURL URLWithString:@"http://www.myweather2.com/developer/forecast.ashx?uac=KDrRbvwbAt&output=json&query=97006&temp_unit=f"];
     
     ZMBNetworkController *myNetworkController = [ZMBNetworkController sharedController];
-    [myNetworkController downloadDataFromURL:downloadURL withCompletionHandler:^(NSData *data) {
-        //check if data returned
-        if (data != nil) {
-            
-            NSError *error;
-            NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-            
-            if (error != nil) {
-                NSLog(@"%@", [error localizedDescription]);
-            } else {
-                
-                
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"WeatherDataDownloaded" object:nil userInfo:JSON];
-    
-            }
-        }
-        
-    }];
-
+    [myNetworkController downloadData];
+    [myNetworkController startTimer];
 }
 
 

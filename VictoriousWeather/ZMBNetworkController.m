@@ -30,21 +30,17 @@
 }
 
 - (void)startTimer {
-    self.myTimer = [NSTimer timerWithTimeInterval:1800 target:self selector:@selector(downloadDataFromURL:withCompletionHandler:) userInfo:nil repeats:YES];
-    
+    self.myTimer = [NSTimer timerWithTimeInterval:1800 target:self selector:@selector(downloadData) userInfo:nil repeats:YES];
 }
 
-- (void)downloadWeatherDataWithCompletion:(ZMBDownloadCompletion)completion {
+- (void)downloadData {
     
+    NSURL *downloadURL = [NSURL URLWithString:@"http://www.myweather2.com/developer/forecast.ashx?uac=KDrRbvwbAt&output=json&query=97006&temp_unit=f"];
     
-    
-}
-
-- (void)downloadDataFromURL:(NSURL *)url withCompletionHandler:(void (^)(NSData *data))completionHandler {
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:downloadURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
        
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
@@ -67,25 +63,6 @@
     [dataTask resume];
 }
 
-- (ZMBWeatherModel *)dataFromJSON:(NSDictionary *)JSON {
-   
-    NSDictionary *myJSON = [[NSDictionary alloc] initWithDictionary:JSON];
-    NSArray *currentWeather = [[NSArray alloc] initWithArray:[myJSON objectForKey:@"curren_weather"]];
-    
-    
-//    NSNumber *currentTemperature = [currentWeather valueForKey:@"temp"];
-   
-    
-    ZMBWeatherModel *weatherModel = [[ZMBWeatherModel alloc] init];
-//    weatherModel.currentTemperature = currentTemperature;
-    
-    
-    return weatherModel;
-}
-
-- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
-    
-}
 
 
 @end

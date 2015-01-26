@@ -28,7 +28,6 @@ typedef void (^ZMBDownloadCompletion)(ZMBWeatherModel *data, NSError *error);
 + (ZMBNetworkController *)sharedController;
 
 - (void)startTimer;
-- (void)downloadWeatherDataWithCompletion:(ZMBDownloadCompletion)completion;
-- (void)downloadDataFromURL:(NSURL *)url withCompletionHandler:(void (^)(NSData *data))completionHandler;
+- (void)downloadData;
 
 @end
