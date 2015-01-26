@@ -69,6 +69,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8A10D0AF1A76D2A900D43757 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8AFE84AF1A69CF3D00FC8521 /* FirstViewController.h */,
+				8AFE84B01A69CF3D00FC8521 /* FirstViewController.m */,
+				8AFE84B21A69CF3D00FC8521 /* SecondViewController.h */,
+				8AFE84B31A69CF3D00FC8521 /* SecondViewController.m */,
+				8ADDF6F31A6CAD4C000990E4 /* ZMBNetworkController.h */,
+				8ADDF6F41A6CAD4C000990E4 /* ZMBNetworkController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		8A10D0B01A76D2C000D43757 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8ADDF6F61A6CB04F000990E4 /* ZMBWeatherModel.h */,
+				8ADDF6F71A6CB04F000990E4 /* ZMBWeatherModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		8AFE849C1A69CF3D00FC8521 = {
 			isa = PBXGroup;
 			children = (
@@ -92,14 +114,8 @@
 			children = (
 				8AFE84AC1A69CF3D00FC8521 /* AppDelegate.h */,
 				8AFE84AD1A69CF3D00FC8521 /* AppDelegate.m */,
-				8AFE84AF1A69CF3D00FC8521 /* FirstViewController.h */,
-				8AFE84B01A69CF3D00FC8521 /* FirstViewController.m */,
-				8AFE84B21A69CF3D00FC8521 /* SecondViewController.h */,
-				8AFE84B31A69CF3D00FC8521 /* SecondViewController.m */,
-				8ADDF6F31A6CAD4C000990E4 /* ZMBNetworkController.h */,
-				8ADDF6F41A6CAD4C000990E4 /* ZMBNetworkController.m */,
-				8ADDF6F61A6CB04F000990E4 /* ZMBWeatherModel.h */,
-				8ADDF6F71A6CB04F000990E4 /* ZMBWeatherModel.m */,
+				8A10D0AF1A76D2A900D43757 /* Controllers */,
+				8A10D0B01A76D2C000D43757 /* Model */,
 				8AFE84B51A69CF3D00FC8521 /* Main.storyboard */,
 				8AFE84B81A69CF3D00FC8521 /* Images.xcassets */,
 				8AFE84BA1A69CF3D00FC8521 /* LaunchScreen.xib */,

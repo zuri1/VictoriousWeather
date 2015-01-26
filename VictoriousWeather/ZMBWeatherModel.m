@@ -23,11 +23,15 @@
 
 - (id)initWithJSONDict:(NSDictionary *)JSONDict {
 
+    NSDictionary *todaysWeather = [[JSONDict objectForKey:@"weather"] objectForKey:@"curren_weather"][0];
+    
+    NSDictionary *tomorrowsWeather = [[JSONDict objectForKey:@"weather"] objectForKey:@"forecast"][1];
+    
     if (self = [super init]) {
-        self.todaysTemperature = [[[JSONDict objectForKey:@"weather"] objectForKey:@"curren_weather"][0] objectForKey:@"temp"];
-        self.todaysWeatherDescription = [[[JSONDict objectForKey:@"weather"] objectForKey:@"curren_weather"][0] objectForKey:@"weather_text"];
-        self.tomorrowsTemperature = [[[JSONDict objectForKey:@"weather"] objectForKey:@"forecast"][1] objectForKey:@"day_max_temp"];
-        self.tomorrowsWeatherDescription = [[[[JSONDict objectForKey:@"weather"] objectForKey:@"forecast"][1] objectForKey:@"day"][0] objectForKey:@"weather_text"];
+        self.todaysTemperature = [todaysWeather objectForKey:@"temp"];
+        self.todaysWeatherDescription = [todaysWeather objectForKey:@"weather_text"];
+        self.tomorrowsTemperature = [tomorrowsWeather objectForKey:@"day_max_temp"];
+        self.tomorrowsWeatherDescription = [[tomorrowsWeather objectForKey:@"day"][0] objectForKey:@"weather_text"];
     }
     return self;
 }

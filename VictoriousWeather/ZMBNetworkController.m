@@ -52,6 +52,9 @@
         NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
         self.weatherModel = [[ZMBWeatherModel alloc] initWithJSONDict:JSON];
         
+        NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:self.weatherModel];
+        [[NSUserDefaults standardUserDefaults] setObject:myData forKey:@"weather"];
+        
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             [self.delegate updateWeather];
             

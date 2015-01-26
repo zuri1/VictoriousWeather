@@ -33,12 +33,19 @@
     [self updateWeather];
 }
 
+- (void)viewWillLayoutSubviews {
+    if (![ZMBNetworkController sharedController].weatherModel) {
+        [self.temperature setHidden:YES];
+    }
+}
+
 - (void)updateWeather {
     // Update the view with the cached weather model
+    [self.temperature setHidden:NO];
     
     ZMBWeatherModel *weatherModel = [ZMBNetworkController sharedController].weatherModel;
     
-    self.temperature.text = weatherModel.todaysTemperature;
+    self.temperature.text = [NSString stringWithFormat:@"%@ F", weatherModel.todaysTemperature];
     self.weatherDescription.text = weatherModel.todaysWeatherDescription;
 }
 

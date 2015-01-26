@@ -38,7 +38,7 @@
     
     ZMBWeatherModel *weatherModel = [ZMBNetworkController sharedController].weatherModel;
     
-    self.temperature.text = weatherModel.tomorrowsTemperature;
+    self.temperature.text = [NSString stringWithFormat:@"%@ F", weatherModel.tomorrowsTemperature];
     self.weatherDescription.text = weatherModel.tomorrowsWeatherDescription;
 }
 
