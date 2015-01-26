@@ -25,20 +25,15 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     [self addSwipeGestureRecognizer];
-    
-    [[ZMBNetworkController sharedController] setDelegate:self];
 }
-
-
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self updateWeatherWithModel];
+    [self updateWeather];
 }
 
-- (void)updateWeatherWithModel
-{
+- (void)updateWeather {
     // Update the view with the cached weather model
     
     ZMBWeatherModel *weatherModel = [ZMBNetworkController sharedController].weatherModel;

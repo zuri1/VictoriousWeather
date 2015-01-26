@@ -24,13 +24,18 @@
     
     [self addSwipeGestureRecognizer];
 
-    
     [[ZMBNetworkController sharedController] setDelegate:self];
+    
+    ZMBNetworkController *myNetworkController = [ZMBNetworkController sharedController];
+    [myNetworkController downloadData];
+    [myNetworkController startTimer];
 }
 
-- (void)updateWeatherWithModel:(ZMBWeatherModel *)weatherModel {
+- (void)updateWeather {
+    // Update the view with the cached weather model
     
-    // update the view with the weather model
+    ZMBWeatherModel *weatherModel = [ZMBNetworkController sharedController].weatherModel;
+    
     self.temperature.text = weatherModel.todaysTemperature;
     self.weatherDescription.text = weatherModel.todaysWeatherDescription;
 }

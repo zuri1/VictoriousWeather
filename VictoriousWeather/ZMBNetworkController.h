@@ -12,7 +12,7 @@
 
 @protocol WeatherDataDelegate <NSObject>
 
-- (void)updateWeatherWithModel:(ZMBWeatherModel *)weatherModel;
+- (void)updateWeather;
 
 @end
 

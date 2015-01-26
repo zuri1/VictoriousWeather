@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		8ADDF6F51A6CAD4C000990E4 /* ZMBNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ADDF6F41A6CAD4C000990E4 /* ZMBNetworkController.m */; };
 		8ADDF6F81A6CB04F000990E4 /* ZMBWeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ADDF6F71A6CB04F000990E4 /* ZMBWeatherModel.m */; };
-		8ADDF6FB1A6CD1BA000990E4 /* ZMBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ADDF6FA1A6CD1BA000990E4 /* ZMBTabBarController.m */; };
 		8AFE84AB1A69CF3D00FC8521 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AFE84AA1A69CF3D00FC8521 /* main.m */; };
 		8AFE84AE1A69CF3D00FC8521 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AFE84AD1A69CF3D00FC8521 /* AppDelegate.m */; };
 		8AFE84B11A69CF3D00FC8521 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AFE84B01A69CF3D00FC8521 /* FirstViewController.m */; };
@@ -35,8 +34,6 @@
 		8ADDF6F41A6CAD4C000990E4 /* ZMBNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMBNetworkController.m; sourceTree = "<group>"; };
 		8ADDF6F61A6CB04F000990E4 /* ZMBWeatherModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMBWeatherModel.h; sourceTree = "<group>"; };
 		8ADDF6F71A6CB04F000990E4 /* ZMBWeatherModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMBWeatherModel.m; sourceTree = "<group>"; };
-		8ADDF6F91A6CD1BA000990E4 /* ZMBTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMBTabBarController.h; sourceTree = "<group>"; };
-		8ADDF6FA1A6CD1BA000990E4 /* ZMBTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMBTabBarController.m; sourceTree = "<group>"; };
 		8AFE84A51A69CF3D00FC8521 /* VictoriousWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VictoriousWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AFE84A91A69CF3D00FC8521 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AFE84AA1A69CF3D00FC8521 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -95,8 +92,6 @@
 			children = (
 				8AFE84AC1A69CF3D00FC8521 /* AppDelegate.h */,
 				8AFE84AD1A69CF3D00FC8521 /* AppDelegate.m */,
-				8ADDF6F91A6CD1BA000990E4 /* ZMBTabBarController.h */,
-				8ADDF6FA1A6CD1BA000990E4 /* ZMBTabBarController.m */,
 				8AFE84AF1A69CF3D00FC8521 /* FirstViewController.h */,
 				8AFE84B01A69CF3D00FC8521 /* FirstViewController.m */,
 				8AFE84B21A69CF3D00FC8521 /* SecondViewController.h */,
@@ -188,6 +183,7 @@
 				TargetAttributes = {
 					8AFE84A41A69CF3D00FC8521 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 624RZNPY63;
 					};
 					8AFE84C01A69CF3E00FC8521 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -244,7 +240,6 @@
 				8AFE84B11A69CF3D00FC8521 /* FirstViewController.m in Sources */,
 				8ADDF6F51A6CAD4C000990E4 /* ZMBNetworkController.m in Sources */,
 				8ADDF6F81A6CB04F000990E4 /* ZMBWeatherModel.m in Sources */,
-				8ADDF6FB1A6CD1BA000990E4 /* ZMBTabBarController.m in Sources */,
 				8AFE84AB1A69CF3D00FC8521 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
